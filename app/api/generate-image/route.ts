@@ -67,9 +67,9 @@ export async function POST(req: Request) {
     }
 
     return NextResponse.json({ url: imageUrl });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error generating image:', error);
-    return NextResponse.json({ error: error.message || 'Failed to generate image' }, { status: 500 });
+    return NextResponse.json({ error: error instanceof Error ? error.message : 'Failed to generate image' }, { status: 500 });
   }
 }
 
@@ -91,8 +91,8 @@ export async function GET() {
     }
 
     return NextResponse.json(data);
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error fetching images:', error);
-    return NextResponse.json({ error: error.message || 'Failed to fetch images' }, { status: 500 });
+    return NextResponse.json({ error: error instanceof Error ? error.message : 'Failed to fetch images' }, { status: 500 });
   }
 }

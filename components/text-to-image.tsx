@@ -43,9 +43,9 @@ export function TextToImageComponent() {
         throw new Error('Unexpected data format received from server')
       }
       setAllImages(data)
-    } catch (err: any) {
-      console.error('Error fetching images:', err)
-      setError(err.message || 'An error occurred while fetching images. Please try again.')
+    } catch (err: unknown) {
+      console.error('Error fetching images:', err);
+      setError(err instanceof Error ? err.message : 'An error occurred while fetching images. Please try again.');
     }
   }
 
@@ -88,9 +88,9 @@ export function TextToImageComponent() {
 
       setImageUrl(data.url)
       fetchAllImages() // Refresh the list of all images
-    } catch (err: any) {
-      console.error('Error generating image:', err)
-      setError(err.message || 'An error occurred while generating the image. Please try again.')
+    } catch (err: unknown) {
+      console.error('Error generating image:', err);
+      setError(err instanceof Error ? err.message : 'An error occurred while generating the image. Please try again.');
     } finally {
       clearInterval(updateProgress)
       setLoading(false)
